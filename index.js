@@ -1,48 +1,44 @@
-        // View My Work button
-        document.getElementById('btn').addEventListener('click', function() {
-            window.location.href = '#case';
+
+
+
+
+// ===== MOBILE MENU TOGGLE =====
+const toggleBtn = document.getElementById('toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (toggleBtn && mobileMenu) {
+    toggleBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when a link is clicked
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
         });
-         
-        function myfunction() {
-            window.location.href = "#contact";
+    });
+}
+
+// ===== SMOOTH SCROLL FALLBACK (older browsers) =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        
-        // Mobile menu toggle
-        let btn = document.getElementById('toggle');
-        let show = document.querySelector('.show');
-        
-        btn.addEventListener('click', function() {
-            console.log('Menu button clicked');
-            show.classList.toggle('active');
-        });
-        
-        // Close mobile menu when clicking links
-        document.querySelectorAll('.show a').forEach(link => {
-            link.addEventListener('click', () => {
-                show.classList.remove('active');
-            });
-        });
-        
-        // Smooth scrolling for all anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if (show.classList.contains('active')) {
-                        show.classList.remove('active');
-                    }
-                }
-            });
-        });
+    });
+});
+
+// ===== NAVBAR SHADOW ON SCROLL =====
+const navbar = document.querySelector('.nav-bar');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+        navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+    } else {
+        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.06)';
+    }
+});
     
